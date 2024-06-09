@@ -1,5 +1,112 @@
 # Perícia digital
 
+---
+
+---
+
+# Introdução
+
+Este trabalho tem como objetivo conduzir uma análise forense digital detalhada de uma imagem de um pendrive,
+explorando técnicas e ferramentas específicas para obter informações cruciais sobre os arquivos presentes e
+apagados. A análise inclui a verificação de integridade por meio de hashes, identificação do sistema de
+arquivos, contagem e tipos de arquivos acessíveis, e recuperação de dados de arquivos deletados.
+Além disso, investigamos metadados de arquivos específicos para obter informações sobre datas de criação e
+modificação, bem como identificar dispositivos usados na criação de imagens. As ferramentas principais
+utilizadas incluem md5sum, sha1sum, fls, istat, icat, hexedit, strings, entre outros, refletindo um conjunto
+robusto de metodologias para garantir a precisão e a integridade das descobertas.
+
+Esta abordagem forense fornece uma compreensão aprofundada da estrutura e conteúdo do dispositivo analisado,
+permitindo a recuperação de dados críticos e a verificação de autenticidade, essencial para investigações
+legais e de segurança.
+
+# Metodologia
+
+Esse trabalho foi colocado no github, estando acessível pelo link
+<https://github.com/gustavosinacio/ceub-pericia-digital>.
+
+Como ambiente de coleta de dados foi utilizado um WSL2 com arch linux e uma maquina virtual sift workstation.
+A coleta de dados foi feita com os comandos:
+
+- md5sum
+- sha1sum
+- sha224sum
+- sha256sum
+- sha384sum
+- sha512sum
+- hexedit
+- strings
+- fsstat
+- fdisk
+- fls
+- find
+- grep
+- egrep
+- istat
+- stat
+- ls
+- libreoffice
+- foremost
+
+A imagem do pendrive analisada foi disponibilizada no link
+<https://drive.google.com/file/d/1bYJ2G6Ej_EGKrx5_ol6GdKHd6F3NRm_w/view?usp=sharing>
+acessado em junho de 2024
+
+As questões levantadas e repondidades nessa análise foram:
+
+1. Confira o hash MD5 da imagem comprimida. Sempre faça isso. Depois, calcule os hashes SHA1, SHA224, SHA256, SHA384 e SHA512 da imagem descomprimida, colocando os resultados dentro de um arquivo.
+
+2. Qual filesystem foi utilizado no pendrive? (file / hexedit / fsstat)
+
+3. Quantos setores possui o pendrive? (file / fsstat / fdisk -lu)
+
+4. Quantos arquivos estão acessíveis para usuários? (fls -ruF + grep -v + wc -l / find + wc -l no ponto de montagem)
+
+5. Quais tipos de arquivos estão acessíveis para usuários? (sorter -d / find -type f + egrep -o + sort -u)
+
+6. Qual é o inode do arquivo "Literary Review.doc" dentro da imagem original? (fls -rF)
+
+7. Qual é o inode do arquivo "Literary Review.doc" no ponto de montagem, dentro do filesystem do seu HD? (ls -li / stat)
+
+8. Explique porque há uma diferença no número dos inodes encontrados nos dois itens anteriores e cite qual deles é o correto para referenciar o arquivo em questão.
+
+9. Qual é a data da criação ou última modificação do arquivo "Literary Review.doc" no filesystem? (fls -rF ou find + grep para encontrar o arquivo) (ls -l / stat / fls + istat para ver a data)
+
+10. Qual é a data do último acesso ao arquivo "Literary Review.doc" no filesystem? (fls ou find para encontrar o arquivo) (ls / stat / fls + istat)
+
+11. Quais são as datas de criação e última modificação do conteúdo arquivo "Literary Review.doc"? (dados no próprio arquivo) (ooffice / libreoffice)\*
+
+12. Quem é o criador do conteúdo do arquivo "Fernando_Porcella.xls"? (dados no próprio arquivo) (ooffice / libreoffice / file)
+
+13. Quem foi a última pessoa que modificou conteúdo do arquivo "Fernando_Porcella.xls"? (dados no próprio arquivo) (ooffice / libreoffice / file)
+
+14. Quando se deu a última impressão do conteúdo do arquivo "Fernando_Porcella.xls"? (dados no próprio arquivo) (ooffice / libreoffice)\*
+
+15. Qual foi a data da última modificação do conteúdo da foto "paola-carvalho.jpg"? (dados no próprio arquivo) (strings + grep / hexedit)
+
+16. Qual foi o software utilizado para fazer a modificação do conteúdo da foto "paola-carvalho.jpg"? (dados no próprio arquivo) (strings + grep / hexedit)
+
+17. Qual foi o software utilizado para produzir o documento "sec-us-networkbasedfirewallservice.pdf"? (evince / okular / strings / strings + grep / hexedit)
+
+18. Qual foi a data de modificação do conteúdo do documento "1632-1640.pdf"? (dados no próprio arquivo) (evince / okular / strings + grep / hexedit)
+
+19. Quem criou o conteúdo do documento "1632-1640.pdf"? (dados no próprio arquivo) (evince / okular / strings + grep / hexedit)
+
+20. Pode-se afirmar que todas as datas levantadas nas perguntas anteriores são verídicas? Por quê?
+
+21. Dentro dos arquivos "sec-us-networkbasedfirewallservice.pdf" e "1632-1640.pdf" existem figuras JPG. Extraia as mesmas. (foremost -Tat jpg arquivo)
+
+22. O que representa o número que o comando foremost utiliza como nome de cada arquivo encontrado?
+
+23. Qual é o referido animal? (fls -rdF + istat + icat ou fls -rdFl + icat)
+
+24. Qual foi a provável data da última modificação do conteúdo da foto? (strings + grep)
+
+---
+
+---
+
+# Coleta e análise de evidências
+
 ## 1 Hashes
 
 ### Tarefa: Confira o hash MD5 da imagem comprimida. Sempre faça isso.
