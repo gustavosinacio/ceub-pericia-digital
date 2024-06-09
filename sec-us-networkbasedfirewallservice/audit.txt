@@ -1,0 +1,23 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Sun Jun  9 19:16:34 2024
+Invocation: foremost -Tat jpg sec-us-networkbasedfirewallservice.pdf -o /mnt/c/Users/gsina/github/ceub/pericia-digital/extraidos 
+Output directory: /mnt/c/Users/gsina/github/ceub/pericia-digital/extraidos_Sun_Jun__9_19_16_34_2024
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: sec-us-networkbasedfirewallservice.pdf
+Start: Sun Jun  9 19:16:34 2024
+Length: 334 KB (342738 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000071.jpg 	     299 KB 	      36392 	  (Header dump)
+Finish: Sun Jun  9 19:16:34 2024
+
+1 FILES EXTRACTED
+	
+jpg:= 1
+------------------------------------------------------------------
+
+Foremost finished at Sun Jun  9 19:16:34 2024

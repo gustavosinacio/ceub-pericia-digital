@@ -1,0 +1,23 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Sun Jun  9 19:16:13 2024
+Invocation: foremost -Tat jpg 1632-1640.pdf -o /mnt/c/Users/gsina/github/ceub/pericia-digital/extraidos 
+Output directory: /mnt/c/Users/gsina/github/ceub/pericia-digital/extraidos_Sun_Jun__9_19_16_13_2024
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: 1632-1640.pdf
+Start: Sun Jun  9 19:16:13 2024
+Length: 233 KB (239278 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000019.jpg 	     223 KB 	      10085 	  (Header dump)
+Finish: Sun Jun  9 19:16:13 2024
+
+1 FILES EXTRACTED
+	
+jpg:= 1
+------------------------------------------------------------------
+
+Foremost finished at Sun Jun  9 19:16:13 2024
